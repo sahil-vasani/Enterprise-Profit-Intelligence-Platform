@@ -392,19 +392,19 @@ This project is built for portfolio and educational purposes.
 
 **Executive Dashboard** — Revenue, net profit, margin %, and order volume at a glance.
 
-![Executive Dashboard](powerBI%20dashboard/images/Executive%20Dashboard.png)
+![Executive Dashboard](powerBI_dashboard/images/Executive_Dashboard.png)
 
 ---
 
 **Sales Dashboard** — Revenue trends, order volumes, and fulfilment channel performance.
 
-![Sales Dashboard](powerBI%20dashboard/images/Sales%20Dashboard.png)
+![Sales Dashboard](powerBI%_dashboard/images/Sales_Dashboard.png)
 
 ---
 
 **Customer Dashboard** — Customer segmentation, loyalty scores, CLV, and repeat purchase analysis.
 
-![Customer Dashboard](powerBI%20dashboard/images/Customer%20Dashboard.png)
+![Customer Dashboard](powerBI_dashboard/images/Customer_Dashboard.png)
 
 ---
 
