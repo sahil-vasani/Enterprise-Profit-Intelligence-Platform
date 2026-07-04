@@ -398,7 +398,7 @@ This project is built for portfolio and educational purposes.
 
 **Sales Dashboard** — Revenue trends, order volumes, and fulfilment channel performance.
 
-![Sales Dashboard](powerBI%_dashboard/images/Sales_Dashboard.png)
+![Sales Dashboard](powerBI_dashboard/images/Sales_Dashboard.png)
 
 ---
 
