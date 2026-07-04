@@ -19,6 +19,7 @@
 ## 📋 Table of Contents
 
 - [Project Overview](#-project-overview)
+- [Data Collection & Setup](#-data-collection--setup)
 - [System Architecture](#-system-architecture)
 - [Data Engineering Pipeline](#-data-engineering-pipeline)
 - [AI Copilot — Four Agents](#-ai-copilot--four-agents)
@@ -48,6 +49,134 @@ The final unified dataset was loaded into a proper **PostgreSQL Data Warehouse**
 | **ML Models** | Scikit-Learn Random Forest | Profit & revenue forecasting |
 
 > **Key differentiator**: The AI Copilot uses **dynamic schema introspection** — it reads the actual PostgreSQL schema at runtime instead of relying on hardcoded table definitions. This means the AI will never generate invalid SQL due to a schema mismatch.
+
+---
+
+## 📦 Data Collection & Setup
+
+> ⚠️ The `data/` directory is **excluded from this repository** (`.gitignore`) because the raw and enriched CSVs are 60–110 MB each. Follow the steps below to recreate the full dataset locally before running the platform.
+
+### Step 1 — Download the Raw Dataset from Kaggle
+
+1. Go to the Kaggle dataset page:
+   **[Amazon Sales Report — mdsazzatsardar](https://www.kaggle.com/datasets/mdsazzatsardar/amazonsalesreport)**
+
+2. Download and extract the archive. Place the following file into `data/raw/`:
+
+```
+data/
+└── raw/
+    └── Amazon Sale Report.csv     ← primary file (≈ 66 MB, 128,975 rows)
+```
+
+> The dataset contains Indian Amazon orders from Mar–Jun 2022 with columns: `Order ID`, `Date`, `Status`, `Fulfilment`, `SKU`, `Category`, `Qty`, `Amount`, `ship-city`, `ship-state`, `B2B`, and more.
+
+---
+
+### Step 2 — Run the Business Simulation (Synthetic Data Generation)
+
+The raw Amazon dataset only contains order-level transaction data. It has no customer profiles, no cost structure, no inventory records, no marketing attribution, and no finance metrics. The **Business Simulation Engine** generates all of this synthetically using realistic business rules defined in `business_config.yaml`.
+
+**Run the simulation from the project root:**
+
+```bash
+cd src/business_enrichment
+python simulation_runner.py \
+    --input  "../../data/raw/Amazon Sale Report.csv" \
+    --output "../../data/processed/amazon_enterprise_dataset.csv"
+```
+
+The simulation runs **7 engines in dependency order**:
+
+| # | Engine | What It Generates | Output File |
+|---|--------|-------------------|-------------|
+| 1 | **Logistics Engine** | Shipping cost, courier partner, delivery tier, distance, fuel surcharge | `data/enrichment/logistics.csv` |
+| 2 | **Customer Engine** | Customer ID, segment (Champion/Loyal/At-Risk/Lost), CLV, repeat flag | `data/enrichment/customer.csv` |
+| 3 | **Inventory Engine** | Stock available, reorder flag, dead stock flag, ABC/XYZ classification | `data/enrichment/inventory.csv` |
+| 4 | **Returns Engine** | Return probability, return reason, refund amount, disposal cost | `data/enrichment/returns.csv` |
+| 5 | **Marketing Engine** | Campaign name, campaign cost, discount cost, ROI, attribution cost | `data/enrichment/marketing.csv` |
+| 6 | **Product Engine** | Contribution margin, product lifecycle stage, COGS, packaging cost | `data/enrichment/product.csv` |
+| 7 | **Finance Engine** | Net profit, gross profit, profit margin %, profit leakage, GST, P&L | `data/enrichment/finance.csv` |
+
+**Expected output:**
+```
+[HH:MM:SS] Loading dataset: data/raw/Amazon Sale Report.csv
+[HH:MM:SS]   → 128,975 rows × 21 columns loaded
+[HH:MM:SS] Running Logistics Engine ...  → done in ~4s  | columns: 34
+[HH:MM:SS] Running Customer Engine ...  → done in ~6s  | columns: 45
+[HH:MM:SS] Running Inventory Engine ... → done in ~5s  | columns: 58
+[HH:MM:SS] Running Returns Engine ...   → done in ~4s  | columns: 67
+[HH:MM:SS] Running Marketing Engine ... → done in ~3s  | columns: 76
+[HH:MM:SS] Running Product Engine ...   → done in ~5s  | columns: 85
+[HH:MM:SS] Running Finance Engine ...   → done in ~6s  | columns: 95
+[HH:MM:SS] Validating output ...
+[HH:MM:SS]   ✓ Validation passed — 95 total columns
+[HH:MM:SS] Writing output → data/processed/amazon_enterprise_dataset.csv
+
+══════════════ SIMULATION SUMMARY ══════════════
+  Total orders           : 128,975
+  Total revenue (INR)    : ~78,600,000
+  Total net profit (INR) : ~ -2,158,540  (negative — logistics & returns eat margin)
+  Avg profit margin      : ~-2.7%
+  Avg return probability : ~9.0%
+  Unique customers       : 29,671
+  Champion customers     : (top-tier, high-CLV segment)
+  Dead stock flagged     : (SKUs with no sales > 90 days)
+════════════════════════════════════════════════
+```
+
+**Key business rules configured in `business_config.yaml`:**
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| Category gross margins | 46–55% | e.g., Dupatta 55%, Saree 46% |
+| Platform commission | 10–13% | Amazon fee per category |
+| Shipping rate (FBA) | ₹55/kg | Amazon-fulfilled orders |
+| Shipping rate (Merchant) | ₹70/kg | Self-shipped orders |
+| Tier-3 delivery surcharge | +18% | Remote/rural regions |
+| GST rate | 12% | Indian apparel tax |
+| Payment gateway fee | 1.8% | Per transaction |
+| Dead stock threshold | 90 days | No movement = dead |
+| ABC-A threshold | Top 70% revenue | High-value SKUs |
+
+---
+
+### Step 3 — (Optional) Run Data Quality Checks
+
+```bash
+cd src/data_quality
+python generate_report.py
+```
+
+Runs 4 validation modules: missing values · duplicates · outlier detection · schema validation. Outputs a report to `reports/data_quality/`.
+
+---
+
+### Step 4 — Load into PostgreSQL (ETL)
+
+With the enriched CSV at `data/processed/amazon_enterprise_dataset.csv`, load it into the PostgreSQL data warehouse. The Star Schema tables are created and populated from the processed file:
+
+```
+stg_amazon_sales_raw  →  ETL transform  →  Star Schema
+                                            ├── fact_sales
+                                            ├── dim_product
+                                            ├── dim_customer
+                                            ├── dim_date
+                                            ├── dim_location
+                                            ├── dim_marketing
+                                            ├── dim_inventory
+                                            └── dim_returns
+```
+
+---
+
+### Step 5 — Train the ML Model
+
+```bash
+python src/ml/train_model.py
+```
+
+Trains and benchmarks **3 models** (Linear Regression, Random Forest, XGBoost/LightGBM) on `net_profit` as the target. The best model is saved to `models/best_model.pkl` (≈28.5 MB).
 
 ---
 
