@@ -4,7 +4,7 @@ data/raw/
 data/enrichment/
 data/processed/
 
-powerBI_dashboard/images/*.png 
+# powerBI_dashboard/images/*.png 
 # === ML model artifacts (large binary files) ===
 models/*.pkl
 
