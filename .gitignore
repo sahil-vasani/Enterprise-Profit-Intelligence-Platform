@@ -1,5 +1,6 @@
 # === Large data files (raw + enrichment + processed CSVs) ===
 # These caused the GitHub push rejection (files over 50-100MB).
+data/raw/
 data/enrichment/
 data/processed/
 
