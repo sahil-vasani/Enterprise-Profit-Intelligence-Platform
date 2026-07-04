@@ -1,0 +1,185 @@
+# ============================================================
+#  Enterprise Business Simulation Engine — Configuration File
+#  Amazon India Sales Dataset Extension
+# ============================================================
+
+# ---------- CATEGORY-LEVEL MARGINS ----------
+# gross_margin = (Revenue - COGS) / Revenue
+category_margins:
+  kurta:         0.52
+  Set:           0.48
+  Western Dress: 0.50
+  Top:           0.54
+  Ethnic Dress:  0.49
+  Blouse:        0.53
+  Bottom:        0.51
+  Saree:         0.46
+  Dupatta:       0.55
+  default:       0.50
+
+# ---------- CATEGORY WEIGHT (kg) — for logistics ----------
+category_weight_kg:
+  kurta:         0.35
+  Set:           0.55
+  Western Dress: 0.45
+  Top:           0.25
+  Ethnic Dress:  0.50
+  Blouse:        0.20
+  Bottom:        0.30
+  Saree:         0.60
+  Dupatta:       0.15
+  default:       0.40
+
+# ---------- PLATFORM COMMISSION RATES ----------
+# Amazon charges different rates per category
+platform_commission:
+  kurta:         0.12
+  Set:           0.12
+  Western Dress: 0.13
+  Top:           0.12
+  Ethnic Dress:  0.12
+  Blouse:        0.11
+  Bottom:        0.11
+  Saree:         0.11
+  Dupatta:       0.10
+  default:       0.12
+
+# ---------- RETURN RATES BY CATEGORY ----------
+category_return_rate:
+  kurta:         0.08
+  Set:           0.10
+  Western Dress: 0.12
+  Top:           0.09
+  Ethnic Dress:  0.08
+  Blouse:        0.06
+  Bottom:        0.07
+  Saree:         0.05
+  Dupatta:       0.04
+  default:       0.09
+
+# ---------- PACKAGING COSTS ----------
+packaging_cost_per_unit:
+  kurta:         18.0
+  Set:           25.0
+  Western Dress: 22.0
+  Top:           14.0
+  Ethnic Dress:  20.0
+  Blouse:        12.0
+  Bottom:        15.0
+  Saree:         30.0
+  Dupatta:       10.0
+  default:       18.0
+
+# ---------- LOGISTICS ----------
+# Base rate (INR per kg) per fulfilment type
+shipping_rate_per_kg:
+  Amazon:   55.0    # FBA / Amazon fulfilled
+  Merchant: 70.0    # Self-ship, usually pricier
+  default:  60.0
+
+# Tier surcharges based on state classification
+tier_surcharge_pct:
+  tier1: 0.00   # Metro states (MH, KA, DL, TN, TS)
+  tier2: 0.08   # State capitals, large cities
+  tier3: 0.18   # Remote / rural
+
+# Fuel surcharge fraction on base shipping
+fuel_surcharge_pct: 0.06
+
+# Avg distance (km) by tier — used for distance estimation
+avg_distance_km:
+  tier1: 450
+  tier2: 850
+  tier3: 1400
+
+# ---------- WAREHOUSE ----------
+warehouse_handling_cost_per_unit: 22.0   # INR per unit
+inventory_holding_cost_pct: 0.015        # % of COGS per month
+inventory_holding_months: 1.5            # average hold before sale
+
+# ---------- FINANCIAL FEES ----------
+payment_gateway_fee_pct: 0.018           # 1.8% of revenue
+gst_rate: 0.12                           # 12% GST (apparel)
+
+# ---------- CANCELLATION & REFUNDS ----------
+cancellation_cost_flat: 15.0             # INR per cancelled order
+refund_processing_cost_pct: 0.02         # 2% of refund amount
+refurbishment_cost_pct: 0.12            # % of original amount (returned goods)
+disposal_cost_pct: 0.04                  # % of COGS for dead stock disposal
+reverse_logistics_cost_pct: 0.50        # % of forward shipping cost
+
+# ---------- MARKETING ----------
+# Default CAC (INR) if not inferred from promotions
+default_cac:
+  B2B:  320.0
+  B2C:  180.0
+
+# Promo discount impact on margin (pct reduction)
+promo_margin_impact: 0.06
+
+# Campaign types and their typical ROI multipliers
+campaign_roi_multiplier:
+  PLCC_Financing:   1.8
+  Flash_Sale:       2.2
+  Seasonal:         1.9
+  Loyalty:          2.5
+  None:             1.0
+
+# ---------- CUSTOMER SEGMENTS ----------
+# CLV multipliers per segment
+clv_multiplier:
+  Champion:         4.5
+  Loyal:            3.0
+  Potential_Loyal:  2.0
+  At_Risk:          1.2
+  Lost:             0.5
+
+# Segment thresholds (orders, avg_order_value)
+segment_thresholds:
+  champion_orders:         5
+  loyal_orders:            3
+  potential_loyal_orders:  2
+  at_risk_orders:          1
+
+# ---------- INVENTORY ----------
+safety_stock_days: 14          # days of demand to hold as safety stock
+lead_time_days: 7              # supplier lead time
+reorder_days_supply: 30        # how many days of stock to reorder
+dead_stock_age_threshold: 90   # days — flag as dead stock above this
+
+# ---------- WAREHOUSE ZONES ----------
+zone_mapping:
+  tier1: [MAHARASHTRA, KARNATAKA, DELHI, TAMIL NADU, TELANGANA, GUJARAT, WEST BENGAL]
+  tier2: [RAJASTHAN, UTTAR PRADESH, HARYANA, PUNJAB, MADHYA PRADESH, ANDHRA PRADESH,
+          KERALA, ODISHA, ASSAM, JHARKHAND, BIHAR, CHHATTISGARH]
+  tier3: []   # everything else defaults to tier3
+
+# ---------- COURIER PARTNERS ----------
+courier_partners:
+  Amazon:   ["Amazon Logistics", "Blue Dart"]
+  Merchant: ["Delhivery", "Ekart", "DTDC", "Xpressbees"]
+
+# ---------- PRODUCT LIFECYCLE ----------
+# Based on SKU age (days since first sale in dataset)
+lifecycle_thresholds:
+  introduction_days: 30
+  growth_days:       90
+  maturity_days:    180
+  # beyond maturity = decline
+
+# ---------- ABC CLASSIFICATION ----------
+# Based on cumulative revenue contribution
+abc_thresholds:
+  A: 0.70    # top SKUs = 70% revenue
+  B: 0.90    # next = 20% revenue
+  # C = remaining 10%
+
+# ---------- XYZ CLASSIFICATION ----------
+# Based on coefficient of variation of sales
+xyz_thresholds:
+  X: 0.30   # low variation — predictable
+  Y: 0.60   # medium variation
+  # Z = high variation / unpredictable
+
+# ---------- SHIPPING INSURANCE ----------
+insurance_rate_pct: 0.005   # 0.5% of order value

@@ -1,0 +1,10 @@
+,Amount,net_profit,estimated_clv,campaign_roi,shipping_cost,return_probability,inventory_turnover,platform_commission,discount_cost
+Amount,1.0,0.227,-0.076,0.607,0.442,0.142,0.063,0.998,0.598
+net_profit,0.227,1.0,0.02,-0.279,-0.149,-0.747,0.018,0.222,-0.347
+estimated_clv,-0.076,0.02,1.0,-0.092,-0.103,-0.012,0.018,-0.075,-0.11
+campaign_roi,0.607,-0.279,-0.092,1.0,0.515,0.328,0.048,0.611,0.901
+shipping_cost,0.442,-0.149,-0.103,0.515,1.0,0.232,0.056,0.443,0.4
+return_probability,0.142,-0.747,-0.012,0.328,0.232,1.0,0.015,0.148,0.277
+inventory_turnover,0.063,0.018,0.018,0.048,0.056,0.015,1.0,0.068,0.027
+platform_commission,0.998,0.222,-0.075,0.611,0.443,0.148,0.068,1.0,0.599
+discount_cost,0.598,-0.347,-0.11,0.901,0.4,0.277,0.027,0.599,1.0

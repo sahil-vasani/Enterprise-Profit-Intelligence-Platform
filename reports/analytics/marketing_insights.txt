@@ -1,0 +1,22 @@
+=================================================================
+  MODULE 5 — MARKETING ANALYTICS: INSIGHTS & RECOMMENDATIONS
+=================================================================
+
+  KEY FINDINGS
+  1. Best campaign: 'Amazon_PLCC_Financing' at 2.24x ROI.
+  2. Worst campaign: 'Organic' at 1.00x ROI.
+     ROI gap between best and worst: 1.24x.
+  3. Portfolio ROI: 5.47x (₹14.4M spend → ₹78.6M revenue).
+  4. Underperforming (ROI < 1.5x): Organic.
+  5. Best channel: 'Organic_Search' | Worst: 'Promotional_Campaign' (highest CAC vs return).
+  6. Spend on break-even or worse campaigns: ₹0.00M.
+
+  BUSINESS RECOMMENDATIONS
+  R1. SCALE 'Amazon_PLCC_Financing' — 2.24x ROI is proven. Increase budget 20–30%.
+  R2. PAUSE 'Organic' (1.00x ROI). Restructure targeting and creative.
+  R3. REALLOCATE budget from low-ROI campaigns to high-ROI ones.
+      ₹0.00M in near-zero-return spend can be redirected.
+  R4. GROW 'Organic_Search' acquisition — highest profit-per-order channel.
+  R5. SET a hard floor: no campaign approved below 1.0x ROI.
+
+=================================================================

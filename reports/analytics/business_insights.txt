@@ -1,0 +1,21 @@
+=================================================================
+  MODULE 1 — PROFIT ANALYSIS: INSIGHTS & RECOMMENDATIONS
+=================================================================
+
+  KEY FINDINGS
+  1. Net Margin: -2.75%  (Revenue ₹78.6M → Net ₹-2.16M).
+  2. Top cost driver: 'COGS' = ₹39.4M (50.2% of revenue).
+  3. Best category: 'Top' (3.7% margin) vs worst: 'Set' (-2.6%) — gap of 6.3 pp.
+  4. Margin trend: improved by 2.22 pp over the tracked period.
+
+  BUSINESS RECOMMENDATIONS
+  R1. ATTACK 'COGS' first — it consumes 50.2% of every revenue rupee.
+      Renegotiate platform fee or reduce commission-heavy categories.
+  R2. GROW 'Top' — highest margin category. Expand SKU range and ad spend.
+  R3. FIX or phase out 'Set' — drag on overall portfolio margin.
+      Run a 90-day profitability review: reprice, bundle, or delist.
+  R4. TARGET a net margin of 0% as Phase 1 goal.
+      Reducing total leakage by 15% adds ~₹0.3M to bottom line.
+  R5. MONITOR monthly margin trend weekly — early signal of cost creep.
+
+=================================================================

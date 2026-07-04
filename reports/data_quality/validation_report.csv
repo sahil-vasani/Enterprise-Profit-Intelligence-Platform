@@ -1,0 +1,16 @@
+Rule,Status,Failed Rows,Sample Values
+Qty > 0,FAIL,12807,0 | 0 | 0 | 0 | 0
+Amount >= 0,PASS,0,None
+shipping_cost >= 0,PASS,0,None
+cogs <= Amount,PASS,0,None
+profit_margin_pct between -100 and 100,FAIL,1608,-101.87 | -110.68 | -104.05 | -107.84 | -107.48
+return_probability between 0 and 1,PASS,0,None
+inventory_available >= 0,PASS,0,None
+customer_id not null,PASS,0,None
+gross_profit ~= Amount - cogs (tol=0.01),PASS,0,None
+net_profit <= gross_profit,PASS,0,None
+delay_probability between 0 and 1,PASS,0,None
+stockout_probability between 0 and 1,PASS,0,None
+loyalty_score between 0 and 100,PASS,0,None
+campaign_roi >= -100,PASS,0,None
+Order ID not null,PASS,0,None

@@ -1,0 +1,22 @@
+=================================================================
+  MODULE 6 — RETURNS & LOGISTICS: INSIGHTS & RECOMMENDATIONS
+=================================================================
+
+  KEY FINDINGS
+  1. Top return reason: 'size_mismatch' (54.9% of all returns).
+  2. Total refund value: ₹11.25M.
+  3. Total return cost (refund + ops): ₹11.76M.
+  4. 14.2% of orders cancelled — major revenue leak.
+  5. Only 22.3% of orders reach successful delivery.
+  6. Best courier: 'Amazon Logistics' (highest profit contribution).
+  7. Delay gap: 'Ekart' is 5.2 pp worse than best courier.
+
+  BUSINESS RECOMMENDATIONS
+  R1. SOLVE 'size_mismatch' (#1 return cause): size guides + fit advisor.
+  R2. REDUCE cancellations from 14.2% with prepaid incentives.
+  R3. REVIEW 'Ekart' SLA — 5.2 pp delay gap vs best partner.
+  R4. TARGET 20% return cost reduction = ₹2.35M savings.
+      Better demand forecasting + pre-shipment quality checks.
+  R5. IMPROVE product content to reduce wrong-item returns.
+
+=================================================================

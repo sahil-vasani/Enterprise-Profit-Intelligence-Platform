@@ -1,0 +1,10 @@
+streamlit
+plotly
+pandas
+sqlalchemy
+psycopg2-binary
+langchain
+langgraph
+langchain-ollama
+psutil
+scikit-learn

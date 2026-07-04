@@ -1,0 +1,15 @@
+Column,Method,Outlier Count,Percentage
+Amount,IQR,3169,2.4571
+Amount,Z-score,436,0.3381
+shipping_cost,IQR,193,0.1496
+shipping_cost,Z-score,193,0.1496
+cogs,IQR,2854,2.2128
+cogs,Z-score,438,0.3396
+gross_profit,IQR,2919,2.2632
+gross_profit,Z-score,335,0.2597
+net_profit,IQR,3279,2.5424
+net_profit,Z-score,2088,1.6189
+profit_margin_pct,IQR,2121,1.6445
+profit_margin_pct,Z-score,2046,1.5864
+inventory_available,IQR,12998,10.0779
+inventory_available,Z-score,3917,3.037
