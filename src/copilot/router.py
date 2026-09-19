@@ -24,8 +24,16 @@ _ANALYTICS_KEYWORDS = [
 ]
 
 _PREDICTION_KEYWORDS = [
-    "predict", "forecast", "estimate", "next month", "next quarter",
-    "future", "projection", "expected", "will be", "what if",
+    # Standard prediction words
+    "predict", "forecast", "estimate", "projection", "expected",
+    "will be", "what if",
+    # Time-horizon phrases (the primary new additions)
+    "next week", "next month", "next quarter", "next year",
+    "this week", "this month", "this quarter",
+    "after", "in the next", "days from now", "days ahead",
+    "what will", "how much will", "how many will",
+    "revenue after", "profit after", "sales after",
+    "upcoming", "future", "going forward",
 ]
 
 _REPORT_KEYWORDS = [

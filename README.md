@@ -36,7 +36,7 @@
 
 ## 🌟 Project Overview
 
-This project is a **complete, real-world Business Intelligence portfolio** built around the Amazon Sales Dataset from Kaggle. Because the raw dataset lacked enterprise-grade attributes, additional **synthetic business data** was generated and merged — covering customers, marketing campaigns, inventory, warehouses, logistics, returns, and finance metrics.
+This project is a complete, real-world **Business Intelligence** portfolio platform built around the Amazon Sales Dataset from Kaggle. The raw dataset was transformed and enriched with enterprise-level business attributes, derived metrics, and domain-specific logic across customers, marketing, inventory, warehouses, logistics, returns, and finance.
 
 The final unified dataset was loaded into a proper **PostgreSQL Data Warehouse** using a **Star Schema** design, then exposed through:
 
@@ -73,9 +73,9 @@ data/
 
 ---
 
-### Step 2 — Run the Business Simulation (Synthetic Data Generation)
+### Step 2 — Run the Business Enrichment Pipeline
 
-The raw Amazon dataset only contains order-level transaction data. It has no customer profiles, no cost structure, no inventory records, no marketing attribution, and no finance metrics. The **Business Simulation Engine** generates all of this synthetically using realistic business rules defined in `business_config.yaml`.
+The raw Amazon dataset primarily contains order-level transaction data and does not include several enterprise-level attributes required for comprehensive business analysis, such as customer profiles, cost structures, inventory information, marketing attribution, logistics metrics, and financial measures. The Business Enrichment Engine extends the dataset by applying business rules, domain-specific logic, and derived metrics defined in `business_config.yaml`.
 
 **Run the simulation from the project root:**
 
@@ -228,7 +228,7 @@ Trains and benchmarks **3 models** (Linear Regression, Random Forest, XGBoost/Li
 Amazon Sales CSV (Kaggle)
         │
         ▼
-Synthetic Data Generation
+Enterprise Data Enrichment
 (customers, campaigns, inventory,
  logistics, returns, finance metrics)
         │

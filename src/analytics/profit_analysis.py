@@ -378,6 +378,7 @@ def run(save_to_disk: bool = True) -> dict:
     log.info("  Tables Generated: 3")
     log.info("-" * 44)
 
+    return {"insights_text": text}
 
 if __name__ == "__main__":
     run()

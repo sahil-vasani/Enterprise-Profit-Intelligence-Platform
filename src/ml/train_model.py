@@ -47,8 +47,12 @@ NUMERIC_FEATURES = [
     "Qty", "Amount", "cogs", "estimated_shipping_distance", "shipping_cost",
     "delay_probability", "loyalty_score", "estimated_clv", "estimated_cac",
     "inventory_age_days", "inventory_turnover", "stockout_probability",
-    "return_probability", "discount_cost", "campaign_cost", "campaign_roi",
-    "product_profitability_score"
+    "return_probability", "discount_cost", "campaign_cost"
+    # Removed: campaign_roi       — encodes marketing_attribution_cost + discount_cost
+    #           which are direct inputs to net_profit (target), causing leakage.
+    # Removed: product_profitability_score — derived from contribution_margin which
+    #           replicates Revenue - COGS - Packaging - Shipping, i.e., a subset of
+    #           the net_profit formula, causing implicit target leakage.
 ]
 
 CATEGORICAL_FEATURES = [
@@ -154,6 +158,12 @@ def load_and_preprocess() -> tuple[pd.DataFrame, pd.Series, dict[str, float], li
 
     df = pd.read_csv(DATA_PATH)
     validate_dataset(df)
+
+    # ---- Business‑specific missing‑value imputation ----
+    df["fulfilled-by"] = df["fulfilled-by"].fillna("Amazon")
+    df["promotion-ids"] = df["promotion-ids"].fillna("No_Promotion")
+    df["currency"] = df["currency"].fillna("INR")
+    df["Courier Status"] = df["Courier Status"].fillna("Unshipped")
 
     # Impute missing numeric values using column medians and capture medians
     medians: dict[str, float] = {}
